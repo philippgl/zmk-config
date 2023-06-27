@@ -9,22 +9,34 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+    behaviors {
+        bhm: balanced_homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;    // <---[[moderate duration]]
+            quick-tap-ms = <0>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
+    };
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-// ------------------------------------------------------------------------------------------------------------
-// |  `    |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   -   |
-// |  ESC  |  Q  |  W  |  F   |  P   |  B   |                   |  J   |  L    |  U    |  Y   |   ;   | BKSPC |
-// |  TAB  |  A  |  R  |  S   |  T   |  G   |                   |  M   |  N    |  E    |  I   |   O   |   '   |
-// | SHIFT |  Z  |  X  |  C   |  D   |  V   |  MUTE  |  |       |  K   |  H    |  ,    |  .   |   /   | SHIFT |
-//               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
+// -------    ------    -----    -------    ------    --------    ----------    -------    ----------    -------    --------    ---------    ------    ----------    --
+// |  `        |  1      |  2      |  3       |  4       |  5       |                              |  6       |  7        |  8        |  9       |   0       |   -       |
+// |  ESC      |  Q      |  W      |  F       |  P       |  B       |                              |  J       |  L        |  U        |  Y       |   ;       | BKSPC     |
+// |  TAB      |  A      |  R      |  S       |  T       |  G       |                              |  M       |  N        |  E        |  I       |   O       |   '       |
+// | SHIFT     |  Z      |  X      |  C       |  D       |  V       |  MUTE      |     |           |  K       |  H        |  ,        |  .       |   /       | SHIFT     |
+//             | GUI     | ALT     | CTRL     | LOWER    |        ENTER   |                    | SPACE    | RAISE     | CTRL      | ALT      | GUI  |
             bindings = <
-&kp GRAVE &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                      &kp N6 &kp N7    &kp N8    &kp N9   &kp N0   &kp MINUS
-&kp ESC   &kp Q  &kp W    &kp F    &kp P     &kp B                       &kp J  &kp L     &kp U     &kp Y    &kp SEMI &kp BSPC
-&kp TAB   &kp A  &kp R    &kp S    &kp T     &kp G                       &kp M  &kp N     &kp E     &kp I    &kp O    &kp SQT
-&kp LSHFT &kp Z  &kp X    &kp C    &kp D     &kp V  &kp C_MUTE &kp RET   &kp K  &kp H     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &kp LGUI &kp LALT &kp LCTRL &mo 1  &kp RET    &kp SPACE &mo 2  &kp RCTRL &kp RALT  &kp RGUI
+&kp GRAVE     &kp N1     &kp N2       &kp N3       &kp N4        &kp N5                                  &kp N6     &kp N7        &kp N8        &kp N9       &kp N0       &kp MINUS
+&kp ESC       &kp Q      &kp W        &kp F        &kp P         &kp B                                   &kp J      &kp L         &kp U         &kp Y        &kp SEMI     &kp BSPC
+&kp TAB       &bhm LGUI A  &bhm LALT R &bhm LSHIFT S        &bhm LCTRL T  &kp G
+                                                                &kp M      &bhm RCTRL N &bhm RSHIFT E         &bhm RALT I        &bhm RGUI O        &kp SQT
+&kp LSHFT     &kp Z      &kp X        &kp C        &kp D         &kp V      &kp C_MUTE     &kp RET       &kp K      &kp H         &kp COMMA     &kp DOT      &kp FSLH     &kp RSHFT
+                         &kp LGUI     &kp LALT     &kp LCTRL     &mo 1      &kp RET        &kp SPACE     &mo 2      &kp RCTRL     &kp RALT      &kp RGUI
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp LEFT RIGHT>;
